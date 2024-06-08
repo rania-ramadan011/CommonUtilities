@@ -25,12 +25,6 @@ public class APIManager: NetworkManagerProtocol {
         
         providerType.handle(apiRequest: apiRequest)
             .decode(type: T.self, decoder: JSONDecoder())
-            .mapError { error -> Error in
-                if error is DecodingError {
-                    return NetworkError.decodingError
-                }
-                return error
-            }
             .eraseToAnyPublisher()
     }
 }
